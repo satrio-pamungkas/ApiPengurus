@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;  
 using ApiPengurus.Data;
 using ApiPengurus.Repositories;
+using ApiPengurus.Middlewares;
 
 // Variable initialize
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -39,9 +40,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseRouting();
-app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
+app.UseRouting();
+app.UseMiddleware<Authorize>();
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -7,7 +7,7 @@ namespace ApiPengurus.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PengurusController : ControllerBase
+    public class PengurusController : Controller
     {
         private readonly IPengurusRepository _pengurusRepository = null!;
         public PengurusController(IPengurusRepository pengurusRepository)
@@ -23,6 +23,7 @@ namespace ApiPengurus.Controllers
                 Guid obj = Guid.NewGuid();
                 pengurus.id = obj.ToString();
                 pengurus.createddate = DateTime.Now;
+                pengurus.modifieddate = DateTime.Now;
 
                 _pengurusRepository.AddPengurus(pengurus);
                 return Ok();
