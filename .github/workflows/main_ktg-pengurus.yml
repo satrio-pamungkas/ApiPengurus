@@ -28,6 +28,14 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Override appsettings credentials
+        uses: microsoft/variable-substitution@v
+        with:
+          files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
+        env:
+          ConnectionStrings.DefaultConnection: ${{ secrets.CONN_STRING }}
+          ApiKey: ${{ secrets.API_KEY }}
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
