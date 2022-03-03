@@ -47,7 +47,7 @@ namespace ApiPengurus.Controllers
             {
                 traceId = nim,
                 title = "Not Found",
-                message = $"NIM {nim} belum terdaftar dalam kepengurusan KOMPETEGRAM 2022",
+                message = $"NIM {nim} belum terdaftar atau mendaftar dalam kepengurusan KOMPETEGRAM 2022",
                 status = 404
             };
 
