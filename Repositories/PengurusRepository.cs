@@ -17,5 +17,10 @@ namespace ApiPengurus.Repositories
             _context.pengurus.Add(pengurus);
             _context.SaveChanges();
         }
+
+        public Pengurus GetPengurusSingleRecord(string nim)
+        {
+            return _context.pengurus.FirstOrDefault(data => data.nim == nim);
+        }
     }
 }

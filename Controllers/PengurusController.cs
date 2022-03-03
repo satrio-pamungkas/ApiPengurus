@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ApiPengurus.Repositories;
 using ApiPengurus.Models;
-using ApiPengurus.Data;
+using System.Text.Json;
 
 namespace ApiPengurus.Controllers
 {
@@ -31,5 +31,31 @@ namespace ApiPengurus.Controllers
 
             return BadRequest();
         }
+
+        [HttpPost("hasil")]
+        public ActionResult<Pengurus> Show([FromBody]JsonElement payload)
+        {
+            var nim = payload.GetProperty("nim").GetString();
+            var data = _pengurusRepository.GetPengurusSingleRecord(nim);
+
+            if (data != null)
+            {
+                return data;
+            }
+
+            var schema = new Error
+            {
+                traceId = nim,
+                title = "Not Found",
+                message = $"NIM {nim} belum terdaftar dalam kepengurusan KOMPETEGRAM 2022",
+                status = 404
+            };
+
+            Response.StatusCode = StatusCodes.Status404NotFound;
+
+            return new JsonResult(schema);
+
+        }
+        
     }
 }
